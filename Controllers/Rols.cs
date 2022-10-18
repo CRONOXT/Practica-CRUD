@@ -9,11 +9,11 @@ namespace Practica_CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolsControler : ControllerBase
+    public class Rols : ControllerBase
     {
         private readonly DataContext _dataContext;
         private readonly RolServices _rolServices;
-        public RolsControler(DataContext dataContext, RolServices rolServices)
+        public Rols(DataContext dataContext, RolServices rolServices)
         {
             _dataContext = dataContext;
             _rolServices = rolServices;

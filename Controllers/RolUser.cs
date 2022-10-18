@@ -13,12 +13,12 @@ namespace Practica_CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolUserController : ControllerBase
+    public class RolUser : ControllerBase
     {
         private readonly DataContext _context;
         private readonly RolUserServices _rolUserServices;
         private readonly IMapper _mapper;
-        public RolUserController(DataContext context, RolUserServices rolUserServices, IMapper mapper)
+        public RolUser(DataContext context, RolUserServices rolUserServices, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -26,13 +26,13 @@ namespace Practica_CRUD.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<RolUser>> Get()
+        public async Task<IEnumerable<Class.RolUser>> Get()
         {
             return await _rolUserServices.GetAll();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RolUser>> GetById(int id)
+        public async Task<ActionResult<Class.RolUser>> GetById(int id)
         {
             var rolUser = await _rolUserServices.GetById(id);
 
@@ -42,9 +42,9 @@ namespace Practica_CRUD.Controllers
             return rolUser;
         }
         [HttpPost]
-        public async Task<ActionResult<RolUser>> Create(RolUserDto user)
+        public async Task<ActionResult<Class.RolUser>> Create(RolUserDto user)
         {
-            var newUserRol = _mapper.Map<RolUser>(user);
+            var newUserRol = _mapper.Map<Class.RolUser>(user);
             _context.RolUser.Add(newUserRol);
             try
             {
