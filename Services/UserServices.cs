@@ -31,5 +31,36 @@ namespace Practica_CRUD.Services
             await _context.SaveChangesAsync();
             return newUser;
         }
+
+        public async Task Update(UserDto user)
+        {
+            var existUser = await GetById(user.Id);
+
+            if (existUser is not null)
+            {
+                existUser.FName= user.FName;
+                existUser.SName= user.SName;    
+                existUser.FLastName= user.FLastName;
+                existUser.SLastName= user.SLastName;
+                existUser.BirthDate= user.BirthDate;
+                existUser.Email= user.Email;
+                existUser.Gender = user.Gender;
+                existUser.ID_CARD= user.ID_CARD;
+                existUser.Password = user.Password;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task Delete(int id)
+        {
+            var existUser = await GetById(id);
+
+            if (existUser is not null)
+            {
+                _context.User.Remove(existUser);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

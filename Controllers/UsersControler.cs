@@ -40,5 +40,41 @@ namespace Practica_CRUD.Controllers
             var newUser = await _userServices.Create(user);
             return CreatedAtAction(nameof(GetById),new { id = newUser.Id }, newUser);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UserDto user)
+        {
+            if (id != user.Id)
+                return BadRequest(new { message = $"El ID ({id}) de la URL no coincide con algun ID" });
+
+            var userToUpdate = await _userServices.GetById(id);
+
+            if (userToUpdate is not null)
+            {
+                await _userServices.Update(user);
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(id);
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var rolDeleted = await _userServices.GetById(id);
+
+            if (rolDeleted is not null)
+            {
+                await _userServices.Delete(id);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
